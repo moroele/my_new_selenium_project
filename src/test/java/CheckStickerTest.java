@@ -9,7 +9,7 @@ public class CheckStickerTest extends TestBase{
     public void checkStickerTest() {
 
         driver.get("http://localhost/litecart/en/");
-        List<WebElement> ducks = driver.findElements(By.cssSelector("div.image-wrapper"));
+        List<WebElement> ducks = driver.findElements(By.cssSelector(".product"));
         for (WebElement duck:  ducks) {
             duck.findElement(By.cssSelector("div.sticker"));
         }
