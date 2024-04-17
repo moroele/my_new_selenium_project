@@ -17,7 +17,7 @@ public class GeoZonesTest extends TestBase{
         System.out.println(s);
         for (int i = 1;  (i<s-1); i++) {
             List<WebElement> countryCols = countriesRows.get(i).findElements(By.tagName("td"));
-            driver.navigate().to(countryCols.get(2).findElement(By.tagName("a")).getAttribute("href"));
+            countryCols.get(2).findElement(By.tagName("a")).click();
             //check zones
             List<WebElement> zonesRows = driver.findElement(By.cssSelector(".dataTable#table-zones")).findElements(By.tagName("tr"));
             int ss = zonesRows.size();
