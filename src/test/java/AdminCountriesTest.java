@@ -13,19 +13,16 @@ public class AdminCountriesTest extends TestBase{
         driver.findElement(By.name("login")).click();
         List<WebElement> countriesRows = driver.findElement(By.cssSelector("#content > form > table")).findElements(By.tagName("tr"));
         int s = countriesRows.size();
-        System.out.println(s);
         String lastCountry = "A";
         for (int i = 1;  (i<s-1); i++) {
             List<WebElement> countryCols = countriesRows.get(i).findElements(By.tagName("td"));
             String countryName = countryCols.get(4).getText();
             String zone = countryCols.get(5).getText();
-            System.out.println(countryName + ' ' + zone);
             assert(lastCountry.compareTo(countryName) < 0);
             lastCountry = countryName;
 
             if  (!zone.equals("0")) {
-                System.out.println(countryCols.get(4).getAttribute("href"));
-                driver.navigate().to("http://localhost/litecart/admin/?app=countries&doc=edit_country&country_code=CA");
+                countryCols.get(4).findElement(By.tagName("a")).click();
                 //check zones
                 List<WebElement> zonesRows = driver.findElement(By.cssSelector("div #table-zones")).findElements(By.tagName("tr"));
                 int ss = zonesRows.size();
@@ -39,10 +36,8 @@ public class AdminCountriesTest extends TestBase{
                     lastZone = zoneName;
                 }
                 //check end
-
                 driver.navigate().to("http://localhost/litecart/admin/?app=countries&doc=countries");
                 countriesRows = driver.findElement(By.cssSelector("#content > form > table")).findElements(By.tagName("tr"));
-                System.out.println("Ok");
             }
         }
     }
