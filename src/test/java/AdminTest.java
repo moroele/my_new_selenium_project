@@ -11,13 +11,24 @@ public class AdminTest extends TestBase{
         driver.findElement(By.name("username")).sendKeys("admin");
         driver.findElement(By.name("password")).sendKeys("admin");
         driver.findElement(By.name("login")).click();
-        List<WebElement> links = driver.findElements(By.cssSelector("#box-apps-menu-wrapper a"));
-        System.out.println(links.size());
-        for (WebElement link : links) {
-            link.click();
-            driver.findElement(By.tagName("h1"));
+        List<WebElement> links = driver.findElements(By.cssSelector("#app-> a"));
+        int s = links.size();
+        System.out.println(s);
+        List<WebElement> internalLinks;
 
-            return;
+        for (int i = 0;  (i<s); i++) {
+            links = driver.findElements(By.cssSelector("#app-> a"));
+            links.get(i).click();
+            driver.findElement(By.tagName("h1"));
+            internalLinks = driver.findElements(By.cssSelector("#app-.selected>.docs a"));
+            int ss = internalLinks.size();
+            System.out.println(ss);
+            for (int j = 0;  (j<ss); j++) {
+                internalLinks = driver.findElements(By.cssSelector("#app-.selected>.docs a"));
+                internalLinks.get(j).click();
+                driver.findElement(By.tagName("h1"));
+            }
+
         }
     }
 
