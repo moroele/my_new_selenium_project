@@ -20,8 +20,10 @@ public class NewUserTest extends TestBase{
         driver.findElement(By.name("address1")).sendKeys("A1");
         driver.findElement(By.name("postcode")).sendKeys("12345");
         driver.findElement(By.name("city")).sendKeys("S");
-        Select select = new Select(driver.findElement(By.cssSelector("select[name=country_code]")));
-        select.selectByValue("US");
+        //Select select = new Select(driver.findElement(By.cssSelector("select[name=country_code]")));
+        //select.selectByValue("US");
+        driver.findElement(By.cssSelector("#create-account span.selection > span")).click();
+        driver.findElement(By.cssSelector("#select2-country_code-mh-result-9xxc-US")).click();
         driver.findElement(By.name("email")).sendKeys(email);
         driver.findElement(By.name("phone")).sendKeys("777");
         driver.findElement(By.name("password")).sendKeys("123456");
