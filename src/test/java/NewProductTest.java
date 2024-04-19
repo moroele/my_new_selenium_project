@@ -34,6 +34,6 @@ public class NewProductTest extends TestBase{
         driver.findElement(By.cssSelector("#tab-prices > table  input[name=\"prices[USD]\"]")).sendKeys("5");
         driver.findElement(By.cssSelector("#content  button[name=\"save\"]")).click();
         driver.findElement(By.cssSelector("#app-> a[href*=catalog]")).click();
-        //driver.findElement(By.cssSelector("#content > form > table > tbody  a[text=Duck]"));
+        driver.findElement(By.xpath("//a[.='Duck']"));
     }
 }
