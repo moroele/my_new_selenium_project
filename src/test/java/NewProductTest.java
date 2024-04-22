@@ -4,6 +4,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 
 public class NewProductTest extends TestBase{
     @Test
@@ -17,7 +18,9 @@ public class NewProductTest extends TestBase{
         driver.findElement(By.cssSelector("#app-> a[href*=catalog]")).click();
         driver.findElement(By.cssSelector("#content .button[href*=edit_product]")).click();
         driver.findElement(By.cssSelector("#tab-general input[name=\"status\"][value=\"1\"]")).click();
-        driver.findElement(By.cssSelector("#tab-general input[name=\"name[en]\"]")).sendKeys("Duck");
+        String timeStamp = new SimpleDateFormat("HH.mm.ss").format(new java.util.Date());
+        String name = "Duck" + timeStamp;
+        driver.findElement(By.cssSelector("#tab-general input[name=\"name[en]\"]")).sendKeys(name);
         driver.findElement(By.cssSelector("#tab-general input[name=\"quantity\"]")).sendKeys("5");
         driver.findElement(By.cssSelector("#tab-general input[name=\"new_images[]\"]")).sendKeys(absolutePath);
         driver.findElement(By.cssSelector("#tab-general  input[name=date_valid_from]")).sendKeys("01.01.2000");
@@ -34,6 +37,7 @@ public class NewProductTest extends TestBase{
         driver.findElement(By.cssSelector("#tab-prices > table  input[name=\"prices[USD]\"]")).sendKeys("5");
         driver.findElement(By.cssSelector("#content  button[name=\"save\"]")).click();
         driver.findElement(By.cssSelector("#app-> a[href*=catalog]")).click();
-        driver.findElement(By.xpath("//a[.='Duck']"));
+        String locator = "//a[.='" + name + "']\"";
+        driver.findElement(By.xpath(locator));
     }
 }
