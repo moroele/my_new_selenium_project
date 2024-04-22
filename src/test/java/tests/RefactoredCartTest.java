@@ -9,9 +9,9 @@ public class RefactoredCartTest extends TestBase{
             app.addSelectedProductToCart();
             assert (app.getNumberOfItemsInCart() == i);
         }
-        for (int i = 2; i >= 0; i--) {
+        for (int i = app.getNumberOfPositionsInCart() - 1; i >= 0; i--) {
             app.removeProductFromCart();
-            assert (app.getNumberOfItemsInCart() == i);
+            assert (app.getNumberOfPositionsInCart() == i);
         }
     }
 }

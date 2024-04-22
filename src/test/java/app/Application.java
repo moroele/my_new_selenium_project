@@ -3,6 +3,7 @@ package app;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import static org.openqa.selenium.support.ui.ExpectedConditions.numberOfElementsToBe;
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
@@ -29,6 +30,10 @@ public class Application {
     public void addSelectedProductToCart() {
         wait.until(presenceOfElementLocated(By.cssSelector("button[name=\"add_cart_product\"]")));
         int n = this.getNumberOfItemsInCart();
+        if (driver.findElement(By.cssSelector("#box-product h1.title")).getText().equals("Yellow Duck")) {
+            Select size = new Select(driver.findElement(By.name("options[Size]")));
+            size.selectByValue("Small");
+        }
         driver.findElement(By.cssSelector("button[name=\"add_cart_product\"]")).click();
         wait.until((WebDriver d) -> d.findElement(By.cssSelector("#cart > a.content > span.quantity")).getText().equals(Integer.toString(n+1)));
 
@@ -37,8 +42,9 @@ public class Application {
     public void removeProductFromCart() {
         driver.get("http://localhost/litecart/en/");
         wait.until(presenceOfElementLocated(By.cssSelector("#cart > a.link")));
-        int n = this.getNumberOfItemsInCart();
+
         driver.findElement(By.cssSelector("#cart > a.link")).click();
+        int n = this.getNumberOfPositionsInCart();
         wait.until(presenceOfElementLocated(By.cssSelector("#box-checkout-cart li:nth-child(1)  button[value=\"Remove\"]")));
         driver.findElement(By.cssSelector("#box-checkout-cart li:nth-child(1)  button[value=\"Remove\"]")).click();
         wait.until(numberOfElementsToBe(By.cssSelector("#order_confirmation-wrapper > table td.item"), n-1));
@@ -51,5 +57,11 @@ public class Application {
             wait.until(presenceOfElementLocated(By.cssSelector("#cart > a.content > span.quantity")));}
         return Integer.parseInt(driver.findElement(By.cssSelector("#cart > a.content > span.quantity")).getText());
     }
+    public int getNumberOfPositionsInCart() {
+        driver.get("http://localhost/litecart/en/");
+        driver.findElement(By.cssSelector("#cart > a.link")).click();
+        return driver.findElements(By.cssSelector("#order_confirmation-wrapper > table td.item")).size();
+    }
+
 
 }
